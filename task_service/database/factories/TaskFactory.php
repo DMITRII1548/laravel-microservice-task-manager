@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\TaskStatusEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,9 +20,9 @@ class TaskFactory extends Factory
         return [
             'title' => fake()->word(),
             'content' => fake()->text(1000),
-            'tags' => fake()->boolean(70) // 70% шанс на наличие тегов
-                ? fake()->words(random_int(1, 10), true) // Массив слов
-                : null
+            'tags' => fake()->boolean(70)
+                ? fake()->words(random_int(1, 10))
+                : null,
         ];
     }
 }

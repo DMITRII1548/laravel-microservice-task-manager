@@ -25,7 +25,6 @@ class Task extends Model
     {
         return [
             'tags' => 'array',
-            'status' => TaskStatusEnum::class,
         ];
     }
 
