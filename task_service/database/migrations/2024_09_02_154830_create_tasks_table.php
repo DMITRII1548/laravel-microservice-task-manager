@@ -23,7 +23,7 @@ return new class extends Migration
             $table->dateTime('finished_at')
                 ->nullable();
 
-            $table->enum('status', array_map(fn($case) => $case->value, TaskStatusEnum::cases()))
+            $table->enum('status', array_map(fn ($case) => $case->value, TaskStatusEnum::cases()))
                 ->default(TaskStatusEnum::CREATED->value);
 
             $table->json('tags')

@@ -20,7 +20,7 @@ class ProcessingState extends BaseState
     {
         $this->handleStateByEqualStatus(
             TaskStatusEnum::PROCESSING->value,
-            new FinishedState(),
+            new FinishedState,
             $task
         );
     }
@@ -29,7 +29,7 @@ class ProcessingState extends BaseState
     {
         $this->handleStateByEqualStatus(
             TaskStatusEnum::PROCESSING->value,
-            new CreatedState(),
+            new CreatedState,
             $task
         );
     }

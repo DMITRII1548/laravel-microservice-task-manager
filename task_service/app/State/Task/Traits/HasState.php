@@ -23,12 +23,11 @@ trait HasState
         ];
 
         if (isset($statusState[$this->status])) {
-            return new $statusState[$this->status]();
+            return new $statusState[$this->status];
         }
 
         return null;
     }
-
 
     public function setState(TaskStatus $state): void
     {
@@ -42,16 +41,22 @@ trait HasState
 
     public function handleState(): void
     {
-        if ($this->state) $this->state->handle($this);
+        if ($this->state) {
+            $this->state->handle($this);
+        }
     }
 
     public function toNextStatus(): void
     {
-        if ($this->state) $this->state->toNext($this);
+        if ($this->state) {
+            $this->state->toNext($this);
+        }
     }
 
     public function toBackStatus(): void
     {
-        if ($this->state) $this->state->toBack($this);
+        if ($this->state) {
+            $this->state->toBack($this);
+        }
     }
 }

@@ -15,16 +15,13 @@ class FinishedState extends BaseState
         ]);
     }
 
-    public function toNext(Task $task): void
-    {
-
-    }
+    public function toNext(Task $task): void {}
 
     public function toBack(Task $task): void
     {
         $this->handleStateByEqualStatus(
             TaskStatusEnum::FINISHED->value,
-            new ProcessingState(),
+            new ProcessingState,
             $task
         );
     }

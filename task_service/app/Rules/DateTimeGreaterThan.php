@@ -26,7 +26,6 @@ class DateTimeGreaterThan implements ValidationRule
      * @param  string  $attribute  Название атрибута, который проверяется
      * @param  mixed  $value  Значение атрибута, которое проверяется
      * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail  Обратный вызов, который вызывается при неудаче валидации
-     * @return void
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
@@ -50,6 +49,7 @@ class DateTimeGreaterThan implements ValidationRule
                     'attribute' => $attribute,
                     'other' => $this->otherDateField,
                 ]));
+
                 return;
             }
 

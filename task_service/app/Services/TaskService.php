@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Events\Task\StatusUpdated;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;

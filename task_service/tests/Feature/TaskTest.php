@@ -5,9 +5,8 @@ namespace Tests\Feature;
 use App\Enums\TaskStatusEnum;
 use App\Models\Task;
 use App\Models\User;
-use App\State\Task\Contracts\TaskStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-Use Illuminate\Support\Str;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class TaskTest extends TestCase
@@ -69,9 +68,9 @@ class TaskTest extends TestCase
             ->assertJsonPath('content', $task->content)
             ->assertJsonPath('status', $task->status)
             ->assertJsonPath('tags', $task->tags)
-            ->assertJsonPath('started_at', $task->started_at ? $task->started_at->toISOString(): $task->started_at)
-            ->assertJsonPath('finished_at', $task->finished_at ? $task->finished_at->toISOString(): $task->finished_at)
-            ->assertJsonPath('created_at', $task->created_at ? $task->created_at->toISOString(): $task->created_at)
+            ->assertJsonPath('started_at', $task->started_at ? $task->started_at->toISOString() : $task->started_at)
+            ->assertJsonPath('finished_at', $task->finished_at ? $task->finished_at->toISOString() : $task->finished_at)
+            ->assertJsonPath('created_at', $task->created_at ? $task->created_at->toISOString() : $task->created_at)
             ->assertJsonStructure([
                 'id',
                 'title',
@@ -671,7 +670,7 @@ class TaskTest extends TestCase
             'title' => $updatedTask->title,
             'content' => $updatedTask->content,
             'tags' => [
-                'tag' => 'tag'
+                'tag' => 'tag',
             ],
             'status' => $updatedTask->status,
             'started_at' => $updatedTask->started_at,
@@ -700,7 +699,7 @@ class TaskTest extends TestCase
 
         $response->assertOk()
             ->assertJsonPath('updated', true)
-            ->assertJsonPath('new_status',TaskStatusEnum::PROCESSING->value)
+            ->assertJsonPath('new_status', TaskStatusEnum::PROCESSING->value)
             ->assertJsonStructure([
                 'updated',
                 'new_status',
@@ -731,7 +730,7 @@ class TaskTest extends TestCase
 
         $response->assertOk()
             ->assertJsonPath('updated', true)
-            ->assertJsonPath('new_status',TaskStatusEnum::FINISHED->value)
+            ->assertJsonPath('new_status', TaskStatusEnum::FINISHED->value)
             ->assertJsonStructure([
                 'updated',
                 'new_status',
@@ -762,7 +761,7 @@ class TaskTest extends TestCase
 
         $response->assertOk()
             ->assertJsonPath('updated', true)
-            ->assertJsonPath('new_status',TaskStatusEnum::FINISHED->value)
+            ->assertJsonPath('new_status', TaskStatusEnum::FINISHED->value)
             ->assertJsonStructure([
                 'updated',
                 'new_status',
@@ -793,7 +792,7 @@ class TaskTest extends TestCase
 
         $response->assertOk()
             ->assertJsonPath('updated', true)
-            ->assertJsonPath('new_status',TaskStatusEnum::CANCELED->value)
+            ->assertJsonPath('new_status', TaskStatusEnum::CANCELED->value)
             ->assertJsonStructure([
                 'updated',
                 'new_status',
@@ -824,7 +823,7 @@ class TaskTest extends TestCase
 
         $response->assertOk()
             ->assertJsonPath('updated', true)
-            ->assertJsonPath('new_status',TaskStatusEnum::CREATED->value)
+            ->assertJsonPath('new_status', TaskStatusEnum::CREATED->value)
             ->assertJsonStructure([
                 'updated',
                 'new_status',
@@ -855,7 +854,7 @@ class TaskTest extends TestCase
 
         $response->assertOk()
             ->assertJsonPath('updated', true)
-            ->assertJsonPath('new_status',TaskStatusEnum::CREATED->value)
+            ->assertJsonPath('new_status', TaskStatusEnum::CREATED->value)
             ->assertJsonStructure([
                 'updated',
                 'new_status',
@@ -886,7 +885,7 @@ class TaskTest extends TestCase
 
         $response->assertOk()
             ->assertJsonPath('updated', true)
-            ->assertJsonPath('new_status',TaskStatusEnum::PROCESSING->value)
+            ->assertJsonPath('new_status', TaskStatusEnum::PROCESSING->value)
             ->assertJsonStructure([
                 'updated',
                 'new_status',
@@ -917,7 +916,7 @@ class TaskTest extends TestCase
 
         $response->assertOk()
             ->assertJsonPath('updated', true)
-            ->assertJsonPath('new_status',TaskStatusEnum::CREATED->value)
+            ->assertJsonPath('new_status', TaskStatusEnum::CREATED->value)
             ->assertJsonStructure([
                 'updated',
                 'new_status',

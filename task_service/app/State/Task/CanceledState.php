@@ -14,16 +14,13 @@ class CanceledState extends BaseState
         ]);
     }
 
-    public function toNext(Task $task): void
-    {
-
-    }
+    public function toNext(Task $task): void {}
 
     public function toBack(Task $task): void
     {
         $this->handleStateByEqualStatus(
             TaskStatusEnum::CANCELED->value,
-            new CreatedState(),
+            new CreatedState,
             $task
         );
     }

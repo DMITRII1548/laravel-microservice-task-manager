@@ -20,13 +20,10 @@ class CreatedState extends BaseState
     {
         $this->handleStateByEqualStatus(
             TaskStatusEnum::CREATED->value,
-            new ProcessingState(),
+            new ProcessingState,
             $task
         );
     }
 
-    public function toBack(Task $task): void
-    {
-        
-    }
+    public function toBack(Task $task): void {}
 }
