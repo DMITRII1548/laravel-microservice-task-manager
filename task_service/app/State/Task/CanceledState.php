@@ -22,7 +22,7 @@ class CanceledState extends BaseState
     public function toBack(Task $task): void
     {
         $this->handleStateByEqualStatus(
-            TaskStatusEnum::CREATED->value,
+            TaskStatusEnum::CANCELED->value,
             new CreatedState(),
             $task
         );

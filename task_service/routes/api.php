@@ -9,7 +9,7 @@ Route::prefix('users/{user}/tasks/{task}')
     ->controller(TaskController::class)
     ->group(function () {
         Route::prefix('status')->group(function () {
-            Route::patch('next', 'toNextStatus')->name('users.tasks.update.next');
-            Route::patch('back', 'toBackStatus')->name('users.tasks.update.back');
+            Route::patch('next', 'toNextStatus')->name('users.tasks.update.status.next');
+            Route::patch('back', 'toBackStatus')->name('users.tasks.update.status.back');
         });
     });

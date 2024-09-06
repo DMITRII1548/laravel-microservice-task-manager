@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\TaskStatusEnum;
 use App\Models\Task;
 use App\Models\User;
+use App\State\Task\Contracts\TaskStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 Use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -678,5 +679,253 @@ class TaskTest extends TestCase
         ]);
 
         $response->assertStatus(302);
+    }
+
+    public function test_update_a_task_to_next_status_from_created_status_to_processing_status(): void
+    {
+        $user = User::factory()->create();
+
+        $task = Task::factory()
+            ->count(1)
+            ->for($user)
+            ->create([
+                'status' => TaskStatusEnum::CREATED->value,
+            ])
+            ->first();
+
+        $response = $this->patch(route('users.tasks.update.status.next', [
+            'user' => $user->id,
+            'task' => $task->id,
+        ]));
+
+        $response->assertOk()
+            ->assertJsonPath('updated', true)
+            ->assertJsonPath('new_status',TaskStatusEnum::PROCESSING->value)
+            ->assertJsonStructure([
+                'updated',
+                'new_status',
+            ]);
+
+        $this->assertDatabaseHas('tasks', [
+            'id' => $task->id,
+            'status' => TaskStatusEnum::PROCESSING->value,
+        ]);
+    }
+
+    public function test_update_a_task_to_next_status_from_processing_status_to_finished_status(): void
+    {
+        $user = User::factory()->create();
+
+        $task = Task::factory()
+            ->count(1)
+            ->for($user)
+            ->create([
+                'status' => TaskStatusEnum::PROCESSING->value,
+            ])
+            ->first();
+
+        $response = $this->patch(route('users.tasks.update.status.next', [
+            'user' => $user->id,
+            'task' => $task->id,
+        ]));
+
+        $response->assertOk()
+            ->assertJsonPath('updated', true)
+            ->assertJsonPath('new_status',TaskStatusEnum::FINISHED->value)
+            ->assertJsonStructure([
+                'updated',
+                'new_status',
+            ]);
+
+        $this->assertDatabaseHas('tasks', [
+            'id' => $task->id,
+            'status' => TaskStatusEnum::FINISHED->value,
+        ]);
+    }
+
+    public function test_update_a_task_to_next_status_from_finished_status_to_finished_status(): void
+    {
+        $user = User::factory()->create();
+
+        $task = Task::factory()
+            ->count(1)
+            ->for($user)
+            ->create([
+                'status' => TaskStatusEnum::FINISHED->value,
+            ])
+            ->first();
+
+        $response = $this->patch(route('users.tasks.update.status.next', [
+            'user' => $user->id,
+            'task' => $task->id,
+        ]));
+
+        $response->assertOk()
+            ->assertJsonPath('updated', true)
+            ->assertJsonPath('new_status',TaskStatusEnum::FINISHED->value)
+            ->assertJsonStructure([
+                'updated',
+                'new_status',
+            ]);
+
+        $this->assertDatabaseHas('tasks', [
+            'id' => $task->id,
+            'status' => TaskStatusEnum::FINISHED->value,
+        ]);
+    }
+
+    public function test_update_a_task_to_next_status_from_canceled_status_to_canceled_status(): void
+    {
+        $user = User::factory()->create();
+
+        $task = Task::factory()
+            ->count(1)
+            ->for($user)
+            ->create([
+                'status' => TaskStatusEnum::CANCELED->value,
+            ])
+            ->first();
+
+        $response = $this->patch(route('users.tasks.update.status.next', [
+            'user' => $user->id,
+            'task' => $task->id,
+        ]));
+
+        $response->assertOk()
+            ->assertJsonPath('updated', true)
+            ->assertJsonPath('new_status',TaskStatusEnum::CANCELED->value)
+            ->assertJsonStructure([
+                'updated',
+                'new_status',
+            ]);
+
+        $this->assertDatabaseHas('tasks', [
+            'id' => $task->id,
+            'status' => TaskStatusEnum::CANCELED->value,
+        ]);
+    }
+
+    public function test_update_a_task_to_back_status_from_created_status_to_created_status(): void
+    {
+        $user = User::factory()->create();
+
+        $task = Task::factory()
+            ->count(1)
+            ->for($user)
+            ->create([
+                'status' => TaskStatusEnum::CREATED->value,
+            ])
+            ->first();
+
+        $response = $this->patch(route('users.tasks.update.status.back', [
+            'user' => $user->id,
+            'task' => $task->id,
+        ]));
+
+        $response->assertOk()
+            ->assertJsonPath('updated', true)
+            ->assertJsonPath('new_status',TaskStatusEnum::CREATED->value)
+            ->assertJsonStructure([
+                'updated',
+                'new_status',
+            ]);
+
+        $this->assertDatabaseHas('tasks', [
+            'id' => $task->id,
+            'status' => TaskStatusEnum::CREATED->value,
+        ]);
+    }
+
+    public function test_update_a_task_to_back_status_from_processing_status_to_created_status(): void
+    {
+        $user = User::factory()->create();
+
+        $task = Task::factory()
+            ->count(1)
+            ->for($user)
+            ->create([
+                'status' => TaskStatusEnum::PROCESSING->value,
+            ])
+            ->first();
+
+        $response = $this->patch(route('users.tasks.update.status.back', [
+            'user' => $user->id,
+            'task' => $task->id,
+        ]));
+
+        $response->assertOk()
+            ->assertJsonPath('updated', true)
+            ->assertJsonPath('new_status',TaskStatusEnum::CREATED->value)
+            ->assertJsonStructure([
+                'updated',
+                'new_status',
+            ]);
+
+        $this->assertDatabaseHas('tasks', [
+            'id' => $task->id,
+            'status' => TaskStatusEnum::CREATED->value,
+        ]);
+    }
+
+    public function test_update_a_task_to_back_status_from_finished_status_to_processing_status(): void
+    {
+        $user = User::factory()->create();
+
+        $task = Task::factory()
+            ->count(1)
+            ->for($user)
+            ->create([
+                'status' => TaskStatusEnum::FINISHED->value,
+            ])
+            ->first();
+
+        $response = $this->patch(route('users.tasks.update.status.back', [
+            'user' => $user->id,
+            'task' => $task->id,
+        ]));
+
+        $response->assertOk()
+            ->assertJsonPath('updated', true)
+            ->assertJsonPath('new_status',TaskStatusEnum::PROCESSING->value)
+            ->assertJsonStructure([
+                'updated',
+                'new_status',
+            ]);
+
+        $this->assertDatabaseHas('tasks', [
+            'id' => $task->id,
+            'status' => TaskStatusEnum::PROCESSING->value,
+        ]);
+    }
+
+    public function test_update_a_task_to_back_status_from_canceled_status_to_created_status(): void
+    {
+        $user = User::factory()->create();
+
+        $task = Task::factory()
+            ->count(1)
+            ->for($user)
+            ->create([
+                'status' => TaskStatusEnum::CANCELED->value,
+            ])
+            ->first();
+
+        $response = $this->patch(route('users.tasks.update.status.back', [
+            'user' => $user->id,
+            'task' => $task->id,
+        ]));
+
+        $response->assertOk()
+            ->assertJsonPath('updated', true)
+            ->assertJsonPath('new_status',TaskStatusEnum::CREATED->value)
+            ->assertJsonStructure([
+                'updated',
+                'new_status',
+            ]);
+
+        $this->assertDatabaseHas('tasks', [
+            'id' => $task->id,
+            'status' => TaskStatusEnum::CREATED->value,
+        ]);
     }
 }
