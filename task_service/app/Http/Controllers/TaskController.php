@@ -61,4 +61,24 @@ class TaskController extends Controller
                 'deleted' => false,
             ]);
     }
+
+    public function toNextStatus(int $user, int $task): Response
+    {
+        $newStatus = $this->taskService->toNextStatus($user, $task);
+
+        return response([
+            'updated' => true,
+            'new_status' => $newStatus,
+        ]);
+    }
+
+    public function toBackStatus(int $user, int $task): Response
+    {
+        $newStatus = $this->taskService->toBackStatus($user, $task);
+
+        return response([
+            'updated' => true,
+            'new_status' => $newStatus,
+        ]);
+    }
 }

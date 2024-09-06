@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use App\Enums\TaskStatusEnum;
+use App\State\Task\Traits\HasState;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Task extends Model
 {
-    use HasFactory;
+    use HasFactory,
+        HasState;
 
     protected $fillable = [
         'title',
@@ -20,6 +21,15 @@ class Task extends Model
         'tags',
         'user_id',
     ];
+
+    protected static function booted()
+    {
+        parent::boot();
+
+        static::retrieved(function ($task): void {
+            $task->state = $task->getCurrentState();
+        });
+    }
 
     protected function casts(): array
     {

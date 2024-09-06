@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\Task\StatusUpdated;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -53,5 +54,23 @@ class TaskService
         $isUpdated = $task->update($data);
 
         return $isUpdated;
+    }
+
+    public function toNextStatus(int $userId, int $taskId): string
+    {
+        $task = $this->getTask($userId, $taskId);
+
+        $task->toNextStatus();
+
+        return $task->refresh()->status;
+    }
+
+    public function toBackStatus(int $userId, int $taskId): string
+    {
+        $task = $this->getTask($userId, $taskId);
+
+        $task->toBackStatus();
+
+        return $task->refresh()->status;
     }
 }
