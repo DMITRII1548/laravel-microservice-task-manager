@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,72 +13,56 @@ use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
-    /** register new account */
-    public function register(Request $request)
+    /**
+     * register new account
+     */
+    public function register(RegisterRequest $request): JsonResponse
     {
-        $request->validate([
-            'name'     => 'required|min:4',
-            'email'    => 'required|email',
-            'password' => 'required|min:8',
+        $data = $request->validated();
+        $data['password'] = Hash::make($data['password']);
+
+        User::create($data);
+
+        return response()->json([
+            'response_code' => '200',
+            'status' =>  'success',
+            'message' => 'success Register'
         ]);
-
-        $dt        = Carbon::now();
-        $join_date = $dt->toDayDateTimeString();
-
-        $user = new User();
-        $user->name         = $request->name ;
-        $user->email        = $request->email;
-        $user->password     = Hash::make($request->password);
-        $user->save();
-
-        $data = [];
-        $data['response_code']  = '200';
-        $data['status']         = 'success';
-        $data['message']        = 'success Register';
-        return response()->json($data);
     }
 
     /**
      * Login Req
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $request->validate([
-            'email'    => 'required|string',
-            'password' => 'required|string',
-        ]);
+        $data = $request->validated();
 
         try {
-
-            $email     = $request->email;
-            $password  = $request->password;
-
-            if (Auth::attempt(['email' => $email,'password' => $password]))
-            {
+            if (Auth::attempt($data)) {
                 $user = Auth::user();
                 $accessToken = $user->createToken($user->email)->accessToken;
 
-                $data = [];
-                $data['response_code']  = '200';
-                $data['status']         = 'success';
-                $data['message']        = 'success Login';
-                $data['user_infor']     = $user;
-                $data['token']          = $accessToken;
-                return response()->json($data);
+                return response()->json([
+                    'response_code' => '200',
+                    'status' => 'success',
+                    'message' => 'success Login',
+                    'token' => $accessToken,
+                ]);
             } else {
-                $data = [];
-                $data['response_code']  = '401';
-                $data['status']         = 'error';
-                $data['message']        = 'Unauthorised';
-                return response()->json($data);
+                return response()->json([
+                    'response_code' => '401',
+                    'status' => 'error',
+                    'message' => 'Unauthorised',
+                ], 401);
             }
         } catch(\Exception $e) {
             Log::info($e->getMessage());
-            $data = [];
-            $data['response_code']  = '401';
-            $data['status']         = 'error';
-            $data['message']        = 'fail Login';
-            return response()->json($data);
+
+            return response()->json([
+                'response_code' => '401',
+                'status' => 'error',
+                'message' => 'Failed login'
+            ], 401);
         }
     }
 }
