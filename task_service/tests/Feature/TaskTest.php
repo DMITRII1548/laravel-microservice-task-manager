@@ -574,40 +574,6 @@ class TaskTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_status_attribute_is_required_for_updating_a_task(): void
-    {
-        $user = User::factory()->create();
-
-        $task = Task::factory()
-            ->count(1)
-            ->for($user)
-            ->create()
-            ->first();
-
-        $updatedTask = Task::factory()->make([
-            'status' => TaskStatusEnum::PROCESSING->value,
-            'started_at' => now()->format('Y-m-d H:i:s'),
-            'finished_at' => now()->addDay()->format('Y-m-d H:i:s'),
-            'tags' => [
-                'tag1',
-                'tag2',
-            ],
-        ]);
-
-        $response = $this->patch(route('users.tasks.update', [
-            'user' => $user->id,
-            'task' => $task->id,
-        ]), [
-            'title' => $updatedTask->title,
-            'content' => $updatedTask->content,
-            'tags' => $updatedTask->tags,
-            'started_at' => $updatedTask->started_at,
-            'finished_at' => $updatedTask->finished_at,
-        ]);
-
-        $response->assertStatus(302);
-    }
-
     public function test_status_attribute_is_enum_for_updating_a_task(): void
     {
         $user = User::factory()->create();

@@ -34,7 +34,7 @@ class UpdateRequest extends FormRequest
                 new DateTimeGreaterThan('started_at'),
             ],
             'status' => [
-                'required',
+                'nullable',
                 'string',
                 Rule::enum(TaskStatusEnum::class),
             ],
