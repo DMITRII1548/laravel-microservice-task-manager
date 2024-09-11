@@ -12,7 +12,7 @@ class TaskController extends Controller
 {
     public function __construct(
         private TaskService $taskService
-    ) { }
+    ) {}
 
     public function index(): Response|JsonResponse
     {

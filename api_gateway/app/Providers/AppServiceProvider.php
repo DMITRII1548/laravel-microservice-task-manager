@@ -12,14 +12,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(TaskService::class, fn (): TaskService => new TaskService());
+        $this->app->bind(TaskService::class, fn (): TaskService => new TaskService);
     }
 
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
-    {
-
-    }
+    public function boot(): void {}
 }

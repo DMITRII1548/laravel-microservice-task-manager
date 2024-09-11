@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
@@ -138,7 +137,7 @@ class AuthTest extends TestCase
             ->assertJsonStructure([
                 'response_code',
                 'status',
-                'message'
+                'message',
             ])
             ->assertJsonPath('response_code', '200')
             ->assertJsonPath('status', 'success')
@@ -251,7 +250,7 @@ class AuthTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->post(route('auth.login'), [
-            'email' => $user['email'] . '1',
+            'email' => $user['email'].'1',
             'password' => 'password',
         ]);
 
@@ -269,7 +268,7 @@ class AuthTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->post(route('auth.login'), [
-            'email' => $user['email'] . '1',
+            'email' => $user['email'].'1',
             'password' => 'password1',
         ]);
 

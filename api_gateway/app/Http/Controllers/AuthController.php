@@ -6,7 +6,6 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -25,8 +24,8 @@ class AuthController extends Controller
 
         return response()->json([
             'response_code' => '200',
-            'status' =>  'success',
-            'message' => 'success Register'
+            'status' => 'success',
+            'message' => 'success Register',
         ]);
     }
 
@@ -55,13 +54,13 @@ class AuthController extends Controller
                     'message' => 'Unauthorised',
                 ], 401);
             }
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             Log::info($e->getMessage());
 
             return response()->json([
                 'response_code' => '401',
                 'status' => 'error',
-                'message' => 'Failed login'
+                'message' => 'Failed login',
             ], 401);
         }
     }

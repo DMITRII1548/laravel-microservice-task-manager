@@ -15,6 +15,7 @@ class TaskService
     use HasHttp;
 
     private Client $client;
+
     private User $user;
 
     public function __construct()
@@ -42,8 +43,8 @@ class TaskService
             $response = $this->client->post("/api/users/{$this->user->id}/tasks", [
                 'json' => $request->all(),
                 'headers' => [
-                    'Accept'        => 'application/json',
-                    'Content-Type'  => 'application/json',
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
                 ],
             ]);
 
@@ -72,8 +73,8 @@ class TaskService
             $response = $this->client->patch("/api/users/{$this->user->id}/tasks/{$task}", [
                 'json' => $request->all(),
                 'headers' => [
-                    'Accept'        => 'application/json',
-                    'Content-Type'  => 'application/json',
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
                 ],
             ]);
 
@@ -120,4 +121,3 @@ class TaskService
         });
     }
 }
-

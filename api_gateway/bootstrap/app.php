@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'client' => CheckClientCredentials::class
+            'client' => CheckClientCredentials::class,
         ]);
 
         $middleware->redirectGuestsTo(fn () => abort(401));
