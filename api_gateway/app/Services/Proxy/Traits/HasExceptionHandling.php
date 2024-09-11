@@ -28,7 +28,7 @@ trait HasExceptionHandling
 
         return response([
             'message' => $responseMessage,
-        ], 500);
+        ], 504);
     }
 
     protected function handleClientErrorException(
