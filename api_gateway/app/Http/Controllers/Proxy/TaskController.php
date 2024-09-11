@@ -38,4 +38,14 @@ class TaskController extends Controller
     {
         return $this->taskService->destroy($task);
     }
+
+    public function updateToNextStatus(int $task): Response|JsonResponse
+    {
+        return $this->taskService->updateToNextStatus($task);
+    }
+
+    public function updateToBackStatus(int $task): Response|JsonResponse
+    {
+        return $this->taskService->updateToBackStatus($task);
+    }
 }

@@ -126,5 +126,41 @@ class TaskService
             return $this->handleServerErrorException($e->getMessage());
         }
     }
+
+    public function updateToNextStatus(int $task): Response|JsonResponse
+    {
+        try {
+            $response = $this->client->patch("/api/users/{$this->user->id}/tasks/{$task}/status/next");
+
+            return response()->json(
+                json_decode($response->getBody()->getContents()),
+                $response->getStatusCode()
+            );
+        } catch (ClientException $e) {
+            return $this->handleClientErrorException($e);
+        } catch (ConnectException $e) {
+            return $this->handleConnectErrorException($e->getMessage());
+        } catch (Exception $e) {
+            return $this->handleServerErrorException($e->getMessage());
+        }
+    }
+
+    public function updateToBackStatus(int $task): Response|JsonResponse
+    {
+        try {
+            $response = $this->client->patch("/api/users/{$this->user->id}/tasks/{$task}/status/back");
+
+            return response()->json(
+                json_decode($response->getBody()->getContents()),
+                $response->getStatusCode()
+            );
+        } catch (ClientException $e) {
+            return $this->handleClientErrorException($e);
+        } catch (ConnectException $e) {
+            return $this->handleConnectErrorException($e->getMessage());
+        } catch (Exception $e) {
+            return $this->handleServerErrorException($e->getMessage());
+        }
+    }
 }
 
