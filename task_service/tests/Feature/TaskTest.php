@@ -162,6 +162,23 @@ class TaskTest extends TestCase
         $response->assertStatus(302);
     }
 
+    public function test_values_of_tags_list_attribute_is_string_for_storing_a_task(): void
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->make();
+
+        $response = $this->post(route('users.tasks.store', $user->id), [
+            'title' => $task->title,
+            'content' => $task->content,
+            'tags' => [
+                'test',
+                true,
+            ],
+        ]);
+
+        $response->assertStatus(302);
+    }
+
     public function test_storing_a_task_without_tags(): void
     {
         $user = User::factory()->create();
@@ -637,6 +654,44 @@ class TaskTest extends TestCase
             'content' => $updatedTask->content,
             'tags' => [
                 'tag' => 'tag',
+            ],
+            'status' => $updatedTask->status,
+            'started_at' => $updatedTask->started_at,
+            'finished_at' => $updatedTask->finished_at,
+        ]);
+
+        $response->assertStatus(302);
+    }
+
+    public function test_values_of_tags_list_attribute_is_string_for_updating_a_task(): void
+    {
+        $user = User::factory()->create();
+
+        $task = Task::factory()
+            ->count(1)
+            ->for($user)
+            ->create()
+            ->first();
+
+        $updatedTask = Task::factory()->make([
+            'status' => TaskStatusEnum::PROCESSING->value,
+            'started_at' => now()->format('Y-m-d H:i:s'),
+            'finished_at' => now()->addDay()->format('Y-m-d H:i:s'),
+            'tags' => [
+                'tag1',
+                'tag2',
+            ],
+        ]);
+
+        $response = $this->patch(route('users.tasks.update', [
+            'user' => $user->id,
+            'task' => $task->id,
+        ]), [
+            'title' => $updatedTask->title,
+            'content' => $updatedTask->content,
+            'tags' => [
+                'tag',
+                false
             ],
             'status' => $updatedTask->status,
             'started_at' => $updatedTask->started_at,

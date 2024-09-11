@@ -25,6 +25,7 @@ class StoreRequest extends FormRequest
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'tags' => 'nullable|list',
+            'tags.*' => 'required|string',
         ];
     }
 }

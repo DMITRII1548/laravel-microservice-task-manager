@@ -39,6 +39,7 @@ class UpdateRequest extends FormRequest
                 Rule::enum(TaskStatusEnum::class),
             ],
             'tags' => 'nullable|list',
+            'tags.*' => 'required|string',
         ];
     }
 }
