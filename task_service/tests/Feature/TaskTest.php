@@ -691,7 +691,7 @@ class TaskTest extends TestCase
             'content' => $updatedTask->content,
             'tags' => [
                 'tag',
-                false
+                false,
             ],
             'status' => $updatedTask->status,
             'started_at' => $updatedTask->started_at,
