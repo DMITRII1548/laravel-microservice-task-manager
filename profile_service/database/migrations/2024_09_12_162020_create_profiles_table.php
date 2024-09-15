@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('patronymic');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->integer('age');
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->uniqid();
             $table->timestamps();
         });
     }
