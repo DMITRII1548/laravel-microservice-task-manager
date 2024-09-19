@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('patronymic');
             $table->string('image')->nullable();
             $table->integer('age');
-            $table->foreignIdFor(User::class)->uniqid();
+            $table->foreignIdFor(User::class)->unique();
             $table->timestamps();
         });
     }

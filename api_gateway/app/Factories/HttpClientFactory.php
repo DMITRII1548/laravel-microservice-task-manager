@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class HttpClientFactory implements HttpClient
 {
-    public static function make(string $service, float $timeout = 2.0): Client
+    public static function make(string $service, float $timeout = 5.0): Client
     {
         $microservices = config('microservices');
 
