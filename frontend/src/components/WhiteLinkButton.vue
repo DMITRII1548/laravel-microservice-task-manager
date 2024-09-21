@@ -6,7 +6,7 @@
 const props = defineProps({
   to: {
     type: [String, Object],
-    required: true,
+    required: true
   }
 });
 </script>

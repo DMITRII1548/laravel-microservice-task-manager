@@ -8,6 +8,11 @@ const router = createRouter({
       name: 'home',
       component: import('../views/HomeView.vue')
     },
+    {
+      path: '/sign_in',
+      name: 'sing_in',
+      component: import('../views/Auth/SingIn.vue')
+    },
   ]
 })
 

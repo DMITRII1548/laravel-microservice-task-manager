@@ -5,7 +5,7 @@
                 <h1 class="text-white text-7xl text-center font-semibold">The best task manager</h1>
             </div>
             <div class="z-10 flex justify-center">
-                <WhiteLinkButton to="/">Sign in</WhiteLinkButton>
+                <WhiteLinkButton :to="{ name: 'sing_in' }">Sign in</WhiteLinkButton>
             </div>
         </div>
     </main>
