@@ -13,6 +13,11 @@ const router = createRouter({
       name: 'sing_in',
       component: import('../views/Auth/SingIn.vue')
     },
+    {
+      path: '/sign_up',
+      name: 'sign_up',
+      component: import('../views/Auth/SingUp.vue')
+    },
   ]
 })
 

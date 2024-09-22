@@ -14,7 +14,7 @@
                 placeholder="Password"
              />
             <div class="flex justify-between">
-                <a href="#" class="text-sky-500 mt-1">Don't have an account?</a>
+                <router-link :to="{ name: 'sign_up' }" class="text-sky-500 mt-1">Don't have an account?</router-link>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-md">Sing in</button>
             </div>
         </form>
