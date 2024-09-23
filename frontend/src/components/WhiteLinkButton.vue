@@ -4,9 +4,9 @@
 
 <script setup>
 const props = defineProps({
-  to: {
-    type: [String, Object],
-    required: true
-  }
+    to: {
+        type: [String, Object],
+        required: true
+    }
 });
 </script>
