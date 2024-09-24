@@ -15,9 +15,9 @@
 </template>
 
 <script setup>
-import DetailsButton from '../../components/Task/DetailsButton.vue'
-import EditButton from '../../components/Task/EditButton.vue'
-import DestroyButton from '../../components/Task/DestroyButton.vue'
+import DetailsButton from '../../components/Task/Details.vue'
+import EditButton from '../../components/Task/Edit.vue'
+import DestroyButton from '../../components/Task/Destroy.vue'
 
 import { computed } from 'vue'
 

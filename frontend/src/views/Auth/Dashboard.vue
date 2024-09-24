@@ -18,9 +18,7 @@
                 </div>
                 <div class="col-span-4 sm:col-span-9">
                     <div class="bg-white shadow rounded-lg p-6">
-                        <div class="flex flex-wrap gap-4">
-                            <a href="#" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Create task</a>
-                        </div>
+                        <CreateTaskButton />
                         <div v-if="tasks" class="mt-6 flex flex-col gap-3">
                             <template v-for="task in tasks">
                                 <TaskItem 
@@ -37,6 +35,7 @@
 
 <script setup>
 import TaskItem from '../../components/Task/TaskItem.vue'
+import CreateTaskButton from '../../components/Task/Create.vue'
 
 import { onMounted, computed } from 'vue'
 import { useStore } from 'vuex'
