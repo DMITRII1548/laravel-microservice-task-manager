@@ -1,12 +1,15 @@
 <template>
     <div class="flex gap-2 flex-col md:flex-row flex-wrap justify-between items-center border p-3 rounded-lg">
-        <div><span>{{ id }}</span></div>
-        <div><span class="w-48">{{ title }}</span></div>
-        <div><span :class="statusColor">{{ status }}</span></div>
+        <div><span>{{ task.id }}</span></div>
+        <div><span class="w-48">{{ task.title }}</span></div>
+        <div><span :class="statusColor">{{ task.status }}</span></div>
         <div class="flex gap-2">
             <DetailsButton to="#" />
             <EditButton to="#" />
-            <DestroyButton to="#" />
+            <DestroyButton 
+                :id="task.id"
+                :title="task.title"
+             />
         </div>
     </div>
 </template>
@@ -19,18 +22,10 @@ import DestroyButton from '../../components/Task/DestroyButton.vue'
 import { computed } from 'vue'
 
 const props = defineProps({
-    id: {
-        type: [Number],
+    task: {
+        type: [Object],
         required: true
     },
-    title: {
-        type: [String],
-        required: true
-    },
-    status: {
-        type: [String],
-        required: true
-    }
 })
 
 const statusColor = computed(() => {
@@ -41,6 +36,6 @@ const statusColor = computed(() => {
         CANCELED: 'text-red-500'
     }
 
-    return colors[props.status] || ''
+    return colors[props.task.status] || ''
 })
 </script>

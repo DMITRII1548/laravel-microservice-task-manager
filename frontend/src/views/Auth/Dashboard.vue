@@ -21,12 +21,12 @@
                         <div class="flex flex-wrap gap-4">
                             <a href="#" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Create task</a>
                         </div>
-                        <div class="mt-6 flex flex-col gap-3">
-                            <TaskItem 
-                                id="1"
-                                title="Some title"
-                                status="PROCESSING"
-                             />
+                        <div v-if="tasks" class="mt-6 flex flex-col gap-3">
+                            <template v-for="task in tasks">
+                                <TaskItem 
+                                    :task="task"
+                                />
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -37,4 +37,17 @@
 
 <script setup>
 import TaskItem from '../../components/Task/TaskItem.vue'
+
+import { onMounted, computed } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+
+onMounted(() => {
+    store.dispatch('getTasks')
+})
+
+const tasks = computed(() => {
+    return store.getters.tasks
+})
 </script>
