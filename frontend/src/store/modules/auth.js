@@ -2,7 +2,7 @@ import router from "../../router/index"
 import API from '../../api'
 
 const state = {
-    errors: {
+    authErrors: {
         name: '',
         email: '',
         password: '',
@@ -65,23 +65,23 @@ const actions = {
 }
 
 const getters = {
-    nameError: state => state.errors.name,
-    emailError: state => state.errors.email,
-    passwordError: state => state.errors.password,
+    nameError: state => state.authErrors.name,
+    emailError: state => state.authErrors.email,
+    passwordError: state => state.authErrors.password,
     isLoading: state => state.isLoading
 }
 
 const mutations = {
     setNameError(state, error) {
-        state.errors.name = error
+        state.authErrors.name = error
     },
 
     setEmailError(state, error) {
-        state.errors.email = error
+        state.authErrors.email = error
     },
 
     setPasswordError(state, error) {
-        state.errors.password = error
+        state.authErrors.password = error
     },
 
     setIsLoading(state, isLoading) {
