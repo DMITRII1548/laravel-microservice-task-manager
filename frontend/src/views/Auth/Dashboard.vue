@@ -23,7 +23,7 @@
                             <template v-for="task in tasks">
                                 <TaskItem 
                                     :task="task"
-                                />
+                                 />
                             </template>
                         </div>
                         <div ref="target"></div>

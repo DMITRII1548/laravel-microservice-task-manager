@@ -4,8 +4,12 @@
         <div><span class="w-48">{{ task.title }}</span></div>
         <div><span :class="statusColor">{{ task.status }}</span></div>
         <div class="flex gap-2">
-            <DetailsButton to="#" />
-            <EditButton to="#" />
+            <DetailsButton 
+                :task="task" 
+                :statusColor="statusColor"
+             />
+            <EditButton to="#"
+             />
             <DestroyButton 
                 :id="task.id"
                 :title="task.title"
