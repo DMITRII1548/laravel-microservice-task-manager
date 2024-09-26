@@ -27,8 +27,10 @@ class TaskService
 
     public function getTasks(): Response|JsonResponse
     {
-        return $this->sendHttp(function (): Response|JsonResponse {
-            $response = $this->client->get("/api/users/{$this->user->id}/tasks");
+        $page = request()->get('page') ?? 1;
+
+        return $this->sendHttp(function () use ($page): Response|JsonResponse {
+            $response = $this->client->get("/api/users/{$this->user->id}/tasks?page=$page");
 
             return response()->json(
                 json_decode($response->getBody()->getContents()),

@@ -12,7 +12,7 @@ class TaskService
     {
         $tasks = Task::query()
             ->where('user_id', $id)
-            ->paginate(30);
+            ->paginate(15);
 
         return $tasks;
     }
