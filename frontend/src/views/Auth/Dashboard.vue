@@ -26,6 +26,7 @@
                                 />
                             </template>
                         </div>
+                        <div ref="target"></div>
                     </div>
                 </div>
             </div>
@@ -37,13 +38,41 @@
 import TaskItem from '../../components/Task/TaskItem.vue'
 import CreateTaskButton from '../../components/Task/Create.vue'
 
-import { onMounted, computed } from 'vue'
+import { onMounted, onUnmounted, computed, ref } from 'vue'
 import { useStore } from 'vuex'
 
 const store = useStore()
 
-onMounted(() => {
-    store.dispatch('getTasks')
+const target = ref(null)
+
+let currectPage = 1
+let isLoadingPage = false
+
+const checkVisibility = (entries) => {
+    entries.forEach(async (entry) => {
+        if (entry.isIntersecting && !isLoadingPage) {
+            isLoadingPage = true
+
+            currectPage++
+            await store.dispatch('getTasks', currectPage)
+            isLoadingPage = false
+        }
+    })
+}
+
+onMounted(async () => {
+    await store.dispatch('getTasks')
+
+    const observer = new IntersectionObserver(checkVisibility)
+    if (target.value) {
+        observer.observe(target.value)
+    }
+    
+    onUnmounted(() => {
+        if (target.value) {
+            observer.unobserve(target.value)
+        }
+    })
 })
 
 const tasks = computed(() => {

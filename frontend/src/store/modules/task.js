@@ -11,14 +11,26 @@ const state = {
 }
 
 const actions = {
-    getTasks({ commit }) {
-        API.get('/users/tasks')
+    async getTasks({ commit, getters }, page = 1) {
+        return API.get(`/users/tasks?page=${page}`)
             .then(res => {
-                commit('setTasks', res.data)
+                const existingTasks = getters.tasks
+
+                let tasks = Array.from(new Set([...existingTasks, ...res.data]))
+                tasks = tasks.filter((task, index, self) =>
+                    index === self.findIndex(t => t.id === task.id)
+                );
+
+                commit('setTasks', tasks)
+
+                return res
+            })
+            .catch(e => {
+                throw e
             })
     },
 
-    async storeTask({ dispatch, commit }, data) {
+    async storeTask({ getters, commit }, data) {
         commit('setIsloadingTask', true)
 
         commit('setTitleTaskError', '')
@@ -32,7 +44,10 @@ const actions = {
         })
             .then(res => {
                 commit('setIsloadingTask', false)
-                dispatch('getTasks')
+
+                const tasks = getters.tasks
+                tasks.unshift(res.data)
+
                 return res
             })
             .catch(e => {
@@ -46,9 +61,10 @@ const actions = {
             })     
     },
 
-    destroyTask({ dispatch }, id) {
+    destroyTask({ dispatch, commit }, id) {
         API.delete(`/users/tasks/${id}`)
             .then(res => {
+                commit('setTasks', [])
                 dispatch('getTasks')
             })
     }
