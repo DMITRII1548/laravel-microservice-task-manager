@@ -64,13 +64,13 @@
                             <span>{{ task.created_at ?? '-' }}</span>
                         </div>
                         <div class="col-span-2 flex justify-between gap-2">
-                            <button class="flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">
+                            <button :disabled="isUpdating" @click="store.dispatch('changeToBackStatusTask', task.id)" class="flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
                                 </svg>
                                 <span>Back status</span>
                             </button>
-                            <button class="flex items-center gap-1 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
+                            <button :disabled="isUpdating" @click="store.dispatch('changeToNextStatusTask', task.id)" class="flex items-center gap-1 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
                                 <span>Next status</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
@@ -85,7 +85,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
 
 const props = defineProps({
     task: {
@@ -107,4 +110,8 @@ const openModal = () => {
 const closeModal = () => {
     isModalOpen.value = false
 }
+
+const isUpdating = computed(() => {
+    return store.getters.isUpdatingTask
+})
 </script>
