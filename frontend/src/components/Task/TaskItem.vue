@@ -8,7 +8,8 @@
                 :task="task" 
                 :statusColor="statusColor"
              />
-            <EditButton to="#"
+            <EditButton 
+                :task="task"
              />
             <DestroyButton 
                 :id="task.id"
