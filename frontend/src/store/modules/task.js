@@ -6,7 +6,10 @@ const state = {
     taskErrors: {
         title: '',
         content: '',
-        tags: ''
+        tags: '',
+        status: '',
+        startedAt: '',
+        finishedAt: ''
     },
     isLoadingTask: false,
     isUpdatingTask: false
@@ -75,6 +78,48 @@ const actions = {
             })     
     },
 
+    async updateTask({ dispatch, commit, getters }, data) {
+        commit('setIsUpdatingTask', true)
+        data.startedAt = await dispatch('formatDate', data.startedAt)
+        data.finishedAt = await dispatch('formatDate', data.finishedAt)
+
+        
+
+        return API.patch(`/users/tasks/${data.id}`, {
+            title: data.title,
+            content: data.content,
+            tags: data.tags,
+            status: data.status,
+            created_at: data.startedAt,
+            finished_at: data.finishedAt
+        })
+            .then(async res => {
+                await dispatch('getTask', data.id)
+
+                const updatedTask = getters.task
+                const tasks = getters.tasks.map(task => 
+                    task.id === updatedTask.id ? updatedTask : task
+                )
+
+                commit('setTasks', tasks)
+                commit('setIsUpdatingTask', false)
+
+                return res
+            })
+            .catch(e => {
+                commit('setIsUpdatingTask', false)
+
+                if (e.response.data.error.errors?.title) commit('setTitleTaskError', e.response.data.error.errors.title[0])
+                if (e.response.data.error.errors?.content) commit('setContentTaskError', e.response.data.error.errors.content[0])
+                if (e.response.data.error.errors?.tags) commit('setTagsTaskError', e.response.data.error.errors.tags[0])
+                if (e.response.data.error.errors?.status) commit('setStatusTaskError', e.response.data.error.errors.status[0])
+                if (e.response.data.error.errors?.started_at) commit('setStartedAtTaskError', e.response.data.error.errors.started_at[0])
+                if (e.response.data.error.errors?.finished_at) commit('setFinishedAtTaskError', e.response.data.error.errors.finished_at[0])
+
+                throw e
+            })
+    },
+
     destroyTask({ dispatch, commit }, id) {
         API.delete(`/users/tasks/${id}`)
             .then(res => {
@@ -109,6 +154,7 @@ const actions = {
 
     async changeToBackStatusTask({ dispatch, getters, commit }, id) {
         commit('setIsUpdatingTask', true)
+
         return API.patch(`/users/tasks/${id}/status/back`)
             .then(async (res) => {
                 await dispatch('getTask', id)
@@ -129,6 +175,19 @@ const actions = {
                 commit('setIsUpdatingTask', false)
                 throw e
             })
+    },
+
+    formatDate({}, value) {
+        if (!value) return null
+
+        const date = new Date(value)
+        
+        if (isNaN(date.getTime())) {
+            console.error('Invalid date:', value)
+            return null
+        }
+    
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:00`
     }
 }
 
@@ -139,6 +198,10 @@ const getters = {
     titleTaskError: state => state.taskErrors.title,
     contentTaskError: state => state.taskErrors.content,
     tagsTaskError: state => state.taskErrors.tags,
+    statusTaskError: state => state.taskErrors.status,
+    startedAtTaskError: state => state.taskErrors.startedAt,
+    finishedAtTaskError: state => state.taskErrors.finishedAt,
+
     isLoadingTask: state => state.isLoadingTask,
     isUpdatingTask: state => state.isUpdatingTask
 }
@@ -162,6 +225,18 @@ const mutations = {
 
     setTagsTaskError(state, error) {
         state.taskErrors.tags = error
+    },
+
+    setStatusTaskError(state, error) {
+        state.taskErrors.status = error
+    },
+
+    setstartedAtTaskError(state, error) {
+        state.taskErrors.startedAt = error
+    },
+
+    setFinishedAtTaskError(state, error) {
+        state.taskErrors.finishedAt = error
     },
 
     setIsloadingTask(state, value) {

@@ -19,7 +19,7 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form @submit.prevent="" class="p-4 md:p-5">
+                <form @submit.prevent="updateTask()" class="p-4 md:p-5">
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
                             <Field
@@ -47,6 +47,7 @@
                             <SelectStatus 
                                 v-model="status"
                                 placeholder="Select status"
+                                :error="errors.status"
                              />
                         </div>
                         <div class="col-span-2">
@@ -55,6 +56,8 @@
                                 id="started_at"
                                 v-model="startedAt"
                                 type="datetime-local"
+                                :error="errors.startedAt"
+                                :required="false"
                             />
                         </div>
                         <div class="col-span-2">
@@ -63,6 +66,8 @@
                                 id="finished_at"
                                 v-model="finishedAt"
                                 type="datetime-local"
+                                :error="errors.finishedAt"
+                                :required="false"
                             />
                         </div>
                     </div>
@@ -115,8 +120,10 @@ const errors = computed(() => {
     return {
         title: store.getters.titleTaskError,
         content: store.getters.contentTaskError,
-        tags: store.getters.tagsTaskError
-        // status: store.getters.statusTaskError
+        tags: store.getters.tagsTaskError,
+        status: store.getters.statusTaskError,
+        startedAt: store.getters.startedAtTaskError,
+        finishedAt: store.getters.finishedAtTaskError,
     }
 })
 
@@ -128,5 +135,20 @@ const openModal = () => {
 
 const closeModal = () => {
     isModalOpen.value = false
+}
+
+const updateTask = () => {
+    store.dispatch('updateTask', {
+        id: props.task.id,
+        title: title.value,
+        content: content.value,
+        tags: tags.value,
+        status: status.value,
+        startedAt: startedAt.value,
+        finishedAt: finishedAt.value
+    })
+        .then(res => {
+            closeModal()
+        })
 }
 </script>
