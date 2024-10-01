@@ -5,9 +5,12 @@
                 <div class="col-span-4 sm:col-span-3">
                     <div class="bg-white shadow rounded-lg p-6">
                         <div class="flex flex-col items-center">
-                            <img src="/imgs/user-icon.png">
-                            <h1 class="text-xl font-bold text-center">Name Surname Patronymic</h1>
-                            <p class="text-gray-700">age: 32 years</p>
+                            <img :src="avatarSrc">
+
+                            <template v-if="profile">
+                                <h1 class="text-xl font-bold text-center">{{ fullName }}</h1>
+                                <p class="text-gray-700">age: {{ profile?.age ?? '-' }} years</p>                                
+                            </template>
                             
                             <div class="mt-6 flex flex-wrap gap-4 justify-center">
                                 <CreateProfile v-if="!profile" />
@@ -84,5 +87,20 @@ const tasks = computed(() => {
 
 const profile = computed(() => {
     return store.getters.profile
+})
+
+const avatarSrc = computed(() => profile.value?.image ?? '/imgs/user-icon.png') 
+const fullName = computed(() => {
+    if (profile.value) {
+        const fullName = profile.value.name 
+            + ' '
+            + profile.value.surname
+            + ' '
+            + profile.value.patronymic
+
+        return fullName
+    }
+
+    return ''
 })
 </script>

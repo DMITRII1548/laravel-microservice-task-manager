@@ -19,21 +19,23 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form class="p-4 md:p-5">
+                <form @submit.prevent="storeProfile" class="p-4 md:p-5">
                     <div class="grid gap-4 mb-4 grid-cols-2">
-                        <div class="col-span-2 flex justify-center">
+                        <div class="col-span-2 flex flex-col gap-1 items-center">
                             <VueImageInput
                                 size="size-76"
                                 title="Drop your avatar here (optional)"
                                 bgRounded="12px"
                                 v-model:file="image"
                              />
+                            <p v-if="errors.image" class="text-red-600 mt-1 ml-1 text-center">{{ errors.image }}</p>
                         </div>
                         <div class="col-span-2">
                             <Field
                                 type="text"
                                 placeholder="Name" 
                                 v-model="name"
+                                :error="errors.name"
                              />
                         </div>
                         <div class="col-span-2">
@@ -41,6 +43,7 @@
                                 type="text"
                                 placeholder="Surname" 
                                 v-model="surname"
+                                :error="errors.surname"
                              />
                         </div>
                         <div class="col-span-2">
@@ -48,6 +51,7 @@
                                 type="text"
                                 placeholder="Patronymic" 
                                 v-model="patronymic"
+                                :error="errors.patronymic"
                              />
                         </div>
                         <div class="col-span-2">
@@ -55,7 +59,8 @@
                                 type="number"
                                 min="1"
                                 placeholder="Age"
-                                v-model="age" 
+                                v-model="age"
+                                :error="errors.age" 
                              />
                         </div>
                     </div>
@@ -85,7 +90,16 @@ const surname = ref('')
 const patronymic = ref('')
 const age = ref(null)
 
-const isDisabled = computed(() => store.getters.isLoadingTask)
+const isDisabled = computed(() => store.getters.isLoadingProfile)
+const errors = computed(() => {
+    return {
+        image: store.getters.imageProfileError,
+        name: store.getters.nameProfileError,
+        surname: store.getters.surnameProfileError,
+        patronymic: store.getters.patronymicProfileError,
+        age: store.getters.ageProfileError
+    }
+}) 
 
 const openModal = () => {
     isModalOpen.value = true
@@ -93,6 +107,22 @@ const openModal = () => {
 
 const closeModal = () => {
     isModalOpen.value = false
+}
+
+const storeProfile = () => {
+    const formData = new FormData()
+
+    if (image.value) formData.append('image', image.value[0])
+    
+    formData.append('name', name.value)
+    formData.append('surname', surname.value)
+    formData.append('patronymic', patronymic.value)
+    formData.append('age', age.value)
+    
+    store.dispatch('storeProfile', formData)
+        .then(() => {
+            closeModal()
+        })
 }
 </script>
 
