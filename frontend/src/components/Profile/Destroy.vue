@@ -1,7 +1,5 @@
 <template>
-    <button @click="openModal()" class="flex justify-center items-center text-center h-10 w-10 bg-red-500 hover:bg-red-600 text-white p-2 rounded">
-        <img src="/imgs/icons/delete.svg" alt="Delete">
-    </button>
+    <button @click="openModal()" class="bg-red-300 hover:bg-red-400 text-red-700 py-2 px-4 rounded">Delete profile</button>
     <div ref="modal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -15,9 +13,9 @@
                                 </svg>
                             </div>
                             <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Destroy a task</h3>
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Destroy a profile</h3>
                                 <div class="mt-2">
-                                    <p class="text-sm text-gray-500">Are you sure you want to delete the "{{ title }}" task?</p>
+                                    <p class="text-sm text-gray-500">Do you really want to delete your profile?</p>
                                 </div>
                             </div>
                         </div>
@@ -38,17 +36,6 @@ import { useStore } from 'vuex'
 
 const store = useStore()
 
-const props = defineProps({
-    id: {
-        type: [Number],
-        required: true
-    },
-    title: {
-        type: [String],
-        required: true
-    }
-})
-
 const modal = ref(null)
 
 const openModal = () => {
@@ -59,8 +46,10 @@ const closeModal = () => {
     modal.value.classList.add('hidden')
 }
 
-const destroy = () => {
-    store.dispatch('destroyTask', props.id)
-    closeModal() 
+const destroy = async () => {
+    if (!store.getters.isLoadingProfile) {
+        await store.dispatch('destroyProfile')
+        closeModal() 
+    }
 }
 </script>

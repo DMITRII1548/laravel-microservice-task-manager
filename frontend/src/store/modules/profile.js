@@ -45,6 +45,21 @@ const actions = {
 
                 throw e
             })
+    },
+
+    async destroyProfile({commit}) {
+        commit('setIsLoadingProfile', true)
+
+        return API.delete('/users/profile')
+            .then(res => {
+                commit('setIsLoadingProfile', false)
+                commit('setProfile', null)
+                return res
+            })
+            .catch(e => {
+                commit('setIsLoadingProfile', false)
+                throw e
+            })
     }
 }
 
