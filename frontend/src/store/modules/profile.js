@@ -60,6 +60,35 @@ const actions = {
                 commit('setIsLoadingProfile', false)
                 throw e
             })
+    },
+
+    async updateProfile({commit, dispatch}, data) {
+        commit('setIsLoadingProfile', true)
+        const headers = {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+        }
+
+        data.append('_method', 'PATCH')
+
+        return API.post('/users/profile', data, headers)
+            .then(res => {
+                dispatch('getProfile')
+                commit('setIsLoadingProfile', false)
+                return res
+            })
+            .catch(e => {
+                commit('setIsLoadingProfile', false)
+
+                if (e.response.data.error.errors?.image) commit('setImageProfileError', e.response.data.error.errors.image[0])
+                if (e.response.data.error.errors?.name) commit('setNameProfileError', e.response.data.error.errors.name[0])
+                if (e.response.data.error.errors?.surname) commit('setSurnameProfileError', e.response.data.error.errors.surname[0])
+                if (e.response.data.error.errors?.patronymic) commit('setPatronymicProfileError', e.response.data.error.errors.patronymic[0])
+                if (e.response.data.error.errors?.age) commit('setAgeProfileError', e.response.data.error.errors.age[0])
+
+                throw e
+            })
     }
 }
 

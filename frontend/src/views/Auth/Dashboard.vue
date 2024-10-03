@@ -14,7 +14,7 @@
                             
                             <div class="mt-6 flex flex-wrap gap-4 justify-center">
                                 <CreateProfile v-if="!profile" />
-                                <button @click="openModal()" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded">Edit profile</button>
+                                <EditProfile v-if="profile" />
                                 <DestroyProfile v-if="profile" />
                             </div>
                         </div>
@@ -42,6 +42,7 @@
 import TaskItem from '../../components/Task/TaskItem.vue'
 import CreateTaskButton from '../../components/Task/Create.vue'
 import CreateProfile from '../../components/Profile/Create.vue'
+import EditProfile from '../../components/Profile/Edit.vue'
 import DestroyProfile from '../../components/Profile/Destroy.vue'
 
 import { onMounted, onUnmounted, computed, ref } from 'vue'
