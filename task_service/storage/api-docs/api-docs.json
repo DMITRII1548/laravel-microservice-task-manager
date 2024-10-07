@@ -1,0 +1,727 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Task service API docs",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api": {},
+        "/api/users/{user}/tasks": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get list of tasks",
+                "operationId": "d8986e1a7c97bb5c901a0684ba7bb4a5",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Parameter user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "User id",
+                                "value": "1"
+                            }
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Parameter number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Number of page",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": "1"
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Cook dinner"
+                                            },
+                                            "content": {
+                                                "type": "string",
+                                                "example": "Buy 1 kilogram of chicken and grill it"
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "CREATED",
+                                                    "PROCESSING",
+                                                    "FINISHED",
+                                                    "CANCELED"
+                                                ],
+                                                "example": "CREATED"
+                                            },
+                                            "tags": {
+                                                "type": "array",
+                                                "items": {
+                                                    "description": "Tag name",
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "tag1",
+                                                    "tag2",
+                                                    "tag3"
+                                                ],
+                                                "nullable": true
+                                            },
+                                            "started_at": {
+                                                "type": "date-time",
+                                                "example": "2024-09-27 11:23:26",
+                                                "nullable": true
+                                            },
+                                            "finished_at": {
+                                                "type": "date-time",
+                                                "example": "2024-09-27 11:23:26",
+                                                "nullable": true
+                                            },
+                                            "created_at": {
+                                                "type": "date-time",
+                                                "example": "2024-09-27 11:23:26",
+                                                "nullable": true
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Create a new task",
+                "operationId": "8f71e413256e9e52bae1b2c39a09de59",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Parameter user id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "User id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Cook dinner"
+                                            },
+                                            "content": {
+                                                "type": "string",
+                                                "example": "Buy 1 kilogram of chicken and grill it"
+                                            },
+                                            "tags": {
+                                                "type": "array",
+                                                "items": {
+                                                    "description": "Tag name",
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "tag1",
+                                                    "tag2",
+                                                    "tag3"
+                                                ],
+                                                "nullable": true
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "Cook dinner"
+                                        },
+                                        "content": {
+                                            "type": "string",
+                                            "example": "Buy 1 kilogram of chicken and grill it"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "enum": [
+                                                "CREATED",
+                                                "PROCESSING",
+                                                "FINISHED",
+                                                "CANCELED"
+                                            ],
+                                            "example": "CREATED"
+                                        },
+                                        "tags": {
+                                            "type": "array",
+                                            "items": {
+                                                "description": "Tag name",
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "tag1",
+                                                "tag2",
+                                                "tag3"
+                                            ],
+                                            "nullable": true
+                                        },
+                                        "started_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        },
+                                        "finished_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        },
+                                        "created_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/{user}/tasks/{task}": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get a task",
+                "operationId": "6976f431e4d9bbfae2f25751c86a905c",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Parameter user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "User id",
+                                "value": "1"
+                            }
+                        }
+                    },
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Parameter task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Task id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "Cook dinner"
+                                        },
+                                        "content": {
+                                            "type": "string",
+                                            "example": "Buy 1 kilogram of chicken and grill it"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "enum": [
+                                                "CREATED",
+                                                "PROCESSING",
+                                                "FINISHED",
+                                                "CANCELED"
+                                            ],
+                                            "example": "CREATED"
+                                        },
+                                        "tags": {
+                                            "type": "array",
+                                            "items": {
+                                                "description": "Tag name",
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "tag1",
+                                                "tag2",
+                                                "tag3"
+                                            ],
+                                            "nullable": true
+                                        },
+                                        "started_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        },
+                                        "finished_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        },
+                                        "created_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Destroy a task",
+                "operationId": "5ac0e76cca7eb8368f576e126b2ac066",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Parameter user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "User id",
+                                "value": "1"
+                            }
+                        }
+                    },
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Parameter task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Task id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "deleted": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Update a task",
+                "operationId": "7fcceec62c1e904f5c5739cdfa6ce2ab",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Parameter user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "User id",
+                                "value": "1"
+                            }
+                        }
+                    },
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Parameter task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Task id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Cook dinner"
+                                            },
+                                            "content": {
+                                                "type": "string",
+                                                "example": "Buy 1 kilogram of chicken and grill it"
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "CREATED",
+                                                    "PROCESSING",
+                                                    "FINISHED",
+                                                    "CANCELED"
+                                                ],
+                                                "example": "CREATED"
+                                            },
+                                            "tags": {
+                                                "type": "array",
+                                                "items": {
+                                                    "description": "Tag name",
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "tag1",
+                                                    "tag2",
+                                                    "tag3"
+                                                ],
+                                                "nullable": true
+                                            },
+                                            "started_at": {
+                                                "type": "date-time",
+                                                "example": "2024-09-27 11:23:26",
+                                                "nullable": true
+                                            },
+                                            "finished_at": {
+                                                "type": "date-time",
+                                                "example": "2024-09-27 11:23:26",
+                                                "nullable": true
+                                            },
+                                            "created_at": {
+                                                "type": "date-time",
+                                                "example": "2024-09-27 11:23:26",
+                                                "nullable": true
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "Cook dinner"
+                                        },
+                                        "content": {
+                                            "type": "string",
+                                            "example": "Buy 1 kilogram of chicken and grill it"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "enum": [
+                                                "CREATED",
+                                                "PROCESSING",
+                                                "FINISHED",
+                                                "CANCELED"
+                                            ],
+                                            "example": "CREATED"
+                                        },
+                                        "tags": {
+                                            "type": "array",
+                                            "items": {
+                                                "description": "Tag name",
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "tag1",
+                                                "tag2",
+                                                "tag3"
+                                            ],
+                                            "nullable": true
+                                        },
+                                        "started_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        },
+                                        "finished_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        },
+                                        "created_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/api/users/{user}/tasks/{task}/status/next": {
+            "patch": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Update status of task to next. ",
+                "operationId": "d55982b98f9fdf0f5feb2c9d4314a95e",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Parameter user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "User id",
+                                "value": "1"
+                            }
+                        }
+                    },
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Parameter task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Task id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "updated": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "enum": [
+                                                "CREATED",
+                                                "PROCESSING",
+                                                "FINISHED",
+                                                "CANCELED"
+                                            ],
+                                            "example": "PROCESSING"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/api/users/{user}/tasks/{task}/status/back": {
+            "patch": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Update status of task to back. ",
+                "operationId": "87fe1d1f346cf7185a83fbf727e06749",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Parameter user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "User id",
+                                "value": "1"
+                            }
+                        }
+                    },
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Parameter task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Task id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "updated": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "enum": [
+                                                "CREATED",
+                                                "PROCESSING",
+                                                "FINISHED",
+                                                "CANCELED"
+                                            ],
+                                            "example": "PROCESSING"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Task",
+            "description": "Task"
+        }
+    ]
+}
