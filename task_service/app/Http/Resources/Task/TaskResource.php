@@ -22,7 +22,7 @@ class TaskResource extends JsonResource
             'tags' => $this->tags,
             'started_at' => $this->started_at,
             'finished_at' => $this->finished_at,
-            'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s'): null,
+            'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : null,
         ];
     }
 }

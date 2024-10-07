@@ -9,19 +9,25 @@ use App\Http\Controllers\Controller;
  *     path="/api/users/{user}/tasks",
  *     summary="Create a new task",
  *     tags={"Task"},
+ *
  *      @OA\Parameter(
  *         description="Parameter user id",
  *         in="path",
  *         name="user",
  *         required=true,
+ *
  *         @OA\Schema(type="string"),
+ *
  *         @OA\Examples(example="int", value="1", summary="User id"),
  *     ),
  *
  *     @OA\RequestBody(
+ *
  *         @OA\JsonContent(
  *             allOf={
+ *
  *                 @OA\Schema(
+ *
  *                     @OA\Property(
  *                         property="title",
  *                         type="string",
@@ -35,6 +41,7 @@ use App\Http\Controllers\Controller;
  *                     @OA\Property(
  *                         property="tags",
  *                         type="array",
+ *
  *                         @OA\Items(
  *                             type="string",
  *                             description="Tag name"
@@ -50,7 +57,9 @@ use App\Http\Controllers\Controller;
  *     @OA\Response(
  *         response="200",
  *         description="Ok",
+ *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(
  *                 property="id",
  *                 type="integer",
@@ -75,6 +84,7 @@ use App\Http\Controllers\Controller;
  *             @OA\Property(
  *                 property="tags",
  *                 type="array",
+ *
  *                 @OA\Items(
  *                     type="string",
  *                     description="Tag name"
@@ -82,6 +92,7 @@ use App\Http\Controllers\Controller;
  *                 example={"tag1", "tag2", "tag3"},
  *                 nullable=true
  *             ),
+ *
  *             @OA\Property(
  *                 property="started_at",
  *                 type="date-time",
@@ -108,29 +119,38 @@ use App\Http\Controllers\Controller;
  *     path="/api/users/{user}/tasks",
  *     summary="Get list of tasks",
  *     tags={"Task"},
+ *
  *     @OA\Parameter(
  *         description="Parameter user id",
  *         in="path",
  *         name="user",
  *         required=true,
+ *
  *         @OA\Schema(type="integer"),
+ *
  *         @OA\Examples(example="int", value="1", summary="User id"),
  *     ),
+ *
  *     @OA\Parameter(
  *         description="Parameter number of page",
  *         in="query",
  *         name="page",
  *         required=false,
+ *
  *         @OA\Schema(type="integer"),
+ *
  *         @OA\Examples(example="int", value="1", summary="Number of page"),
  *     ),
  *
  *     @OA\Response(
  *         response="200",
  *         description="Ok",
+ *
  *         @OA\JsonContent(
  *             type="array",
+ *
  *             @OA\Items(
+ *
  *                 @OA\Property(
  *                     property="id",
  *                     type="integer",
@@ -155,6 +175,7 @@ use App\Http\Controllers\Controller;
  *                 @OA\Property(
  *                     property="tags",
  *                     type="array",
+ *
  *                     @OA\Items(
  *                         type="string",
  *                         description="Tag name"
@@ -162,6 +183,7 @@ use App\Http\Controllers\Controller;
  *                     example={"tag1", "tag2", "tag3"},
  *                     nullable=true
  *                 ),
+ *
  *                 @OA\Property(
  *                     property="started_at",
  *                     type="date-time",
@@ -189,26 +211,35 @@ use App\Http\Controllers\Controller;
  *     path="/api/users/{user}/tasks/{task}",
  *     summary="Get a task",
  *     tags={"Task"},
+ *
  *     @OA\Parameter(
  *         description="Parameter user id",
  *         in="path",
  *         name="user",
  *         required=true,
+ *
  *         @OA\Schema(type="integer"),
+ *
  *         @OA\Examples(example="int", value="1", summary="User id"),
  *     ),
+ *
  *     @OA\Parameter(
  *         description="Parameter task id",
  *         in="path",
  *         name="task",
  *         required=true,
+ *
  *         @OA\Schema(type="integer"),
+ *
  *         @OA\Examples(example="int", value="1", summary="Task id"),
  *     ),
+ *
  *     @OA\Response(
  *         response="200",
  *         description="Ok",
+ *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(
  *                 property="id",
  *                 type="integer",
@@ -233,6 +264,7 @@ use App\Http\Controllers\Controller;
  *             @OA\Property(
  *                 property="tags",
  *                 type="array",
+ *
  *                 @OA\Items(
  *                     type="string",
  *                     description="Tag name"
@@ -240,6 +272,7 @@ use App\Http\Controllers\Controller;
  *                 example={"tag1", "tag2", "tag3"},
  *                 nullable=true
  *             ),
+ *
  *             @OA\Property(
  *                 property="started_at",
  *                 type="date-time",
@@ -260,6 +293,7 @@ use App\Http\Controllers\Controller;
  *             ),
  *         )
  *     ),
+ *
  *     @OA\Response(
  *         response="404",
  *         description="Not found"
@@ -276,22 +310,30 @@ use App\Http\Controllers\Controller;
  *         in="path",
  *         name="user",
  *         required=true,
+ *
  *         @OA\Schema(type="integer"),
+ *
  *         @OA\Examples(example="int", value="1", summary="User id"),
  *     ),
-  *     @OA\Parameter(
+ *
+ *     @OA\Parameter(
  *         description="Parameter task id",
  *         in="path",
  *         name="task",
  *         required=true,
+ *
  *         @OA\Schema(type="integer"),
+ *
  *         @OA\Examples(example="int", value="1", summary="Task id"),
  *     ),
  *
  *     @OA\RequestBody(
+ *
  *         @OA\JsonContent(
  *             allOf={
+ *
  *                 @OA\Schema(
+ *
  *                     @OA\Property(
  *                         property="title",
  *                         type="string",
@@ -311,6 +353,7 @@ use App\Http\Controllers\Controller;
  *                     @OA\Property(
  *                         property="tags",
  *                         type="array",
+ *
  *                         @OA\Items(
  *                             type="string",
  *                             description="Tag name"
@@ -318,6 +361,7 @@ use App\Http\Controllers\Controller;
  *                         example={"tag1", "tag2", "tag3"},
  *                         nullable=true
  *                     ),
+ *
  *                     @OA\Property(
  *                         property="started_at",
  *                         type="date-time",
@@ -344,7 +388,9 @@ use App\Http\Controllers\Controller;
  *     @OA\Response(
  *         response="200",
  *         description="Ok",
+ *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(
  *                 property="id",
  *                 type="integer",
@@ -369,6 +415,7 @@ use App\Http\Controllers\Controller;
  *             @OA\Property(
  *                 property="tags",
  *                 type="array",
+ *
  *                 @OA\Items(
  *                     type="string",
  *                     description="Tag name"
@@ -376,6 +423,7 @@ use App\Http\Controllers\Controller;
  *                 example={"tag1", "tag2", "tag3"},
  *                 nullable=true
  *             ),
+ *
  *             @OA\Property(
  *                 property="started_at",
  *                 type="date-time",
@@ -396,6 +444,7 @@ use App\Http\Controllers\Controller;
  *             ),
  *         )
  *     ),
+ *
  *     @OA\Response(
  *         response="404",
  *         description="Not found"
@@ -406,27 +455,35 @@ use App\Http\Controllers\Controller;
  *     path="/api/users/{user}/tasks/{task}",
  *     summary="Destroy a task",
  *     tags={"Task"},
+ *
  *     @OA\Parameter(
  *         description="Parameter user id",
  *         in="path",
  *         name="user",
  *         required=true,
+ *
  *         @OA\Schema(type="integer"),
+ *
  *         @OA\Examples(example="int", value="1", summary="User id"),
  *     ),
+ *
  *     @OA\Parameter(
  *         description="Parameter task id",
  *         in="path",
  *         name="task",
  *         required=true,
+ *
  *         @OA\Schema(type="integer"),
+ *
  *         @OA\Examples(example="int", value="1", summary="Task id"),
  *     ),
  *
  *     @OA\Response(
  *         response="200",
  *         description="Ok",
+ *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(
  *                 type="bool",
  *                 property="deleted",
@@ -451,22 +508,29 @@ use App\Http\Controllers\Controller;
  *         in="path",
  *         name="user",
  *         required=true,
+ *
  *         @OA\Schema(type="integer"),
+ *
  *         @OA\Examples(example="int", value="1", summary="User id"),
  *     ),
-  *     @OA\Parameter(
+ *
+ *     @OA\Parameter(
  *         description="Parameter task id",
  *         in="path",
  *         name="task",
  *         required=true,
+ *
  *         @OA\Schema(type="integer"),
+ *
  *         @OA\Examples(example="int", value="1", summary="Task id"),
  *     ),
  *
  *     @OA\Response(
  *         response="200",
  *         description="Ok",
+ *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(
  *                 property="updated",
  *                 type="bool",
@@ -480,6 +544,7 @@ use App\Http\Controllers\Controller;
  *             ),
  *         )
  *     ),
+ *
  *     @OA\Response(
  *         response="404",
  *         description="Not found"
@@ -496,22 +561,29 @@ use App\Http\Controllers\Controller;
  *         in="path",
  *         name="user",
  *         required=true,
+ *
  *         @OA\Schema(type="integer"),
+ *
  *         @OA\Examples(example="int", value="1", summary="User id"),
  *     ),
-  *     @OA\Parameter(
+ *
+ *     @OA\Parameter(
  *         description="Parameter task id",
  *         in="path",
  *         name="task",
  *         required=true,
+ *
  *         @OA\Schema(type="integer"),
+ *
  *         @OA\Examples(example="int", value="1", summary="Task id"),
  *     ),
  *
  *     @OA\Response(
  *         response="200",
  *         description="Ok",
+ *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(
  *                 property="updated",
  *                 type="bool",
@@ -525,6 +597,7 @@ use App\Http\Controllers\Controller;
  *             ),
  *         )
  *     ),
+ *
  *     @OA\Response(
  *         response="404",
  *         description="Not found"

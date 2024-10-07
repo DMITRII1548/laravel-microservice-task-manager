@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
  *     title="Task service API docs",
  *     version="1.0.0"
  * ),
+ *
  * @OA\PathItem(
  *     path="/api"
  * )
