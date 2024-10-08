@@ -1,0 +1,361 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Profile service API docs",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api": {},
+        "/api/users/{user}/profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get a profile",
+                "operationId": "0d65aa8717fd546c7cfb6ec051ed9207",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Parameter user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "User id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John"
+                                                },
+                                                "surname": {
+                                                    "type": "string",
+                                                    "example": "Michael"
+                                                },
+                                                "patronymic": {
+                                                    "type": "string",
+                                                    "example": "Doe"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "http://127.0.0.1:8000/image/image.png",
+                                                    "nullable": true
+                                                },
+                                                "age": {
+                                                    "type": "integer",
+                                                    "example": "30"
+                                                },
+                                                "user": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": "1"
+                                                        },
+                                                        "email": {
+                                                            "type": "string",
+                                                            "example": "test@gmail.com"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Create a new profile",
+                "operationId": "2ce049407705eb4306d5219c0baf2f03",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Parameter user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "User id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "Michael"
+                                    },
+                                    "patronymic": {
+                                        "type": "string",
+                                        "example": "Doe"
+                                    },
+                                    "age": {
+                                        "type": "integer",
+                                        "example": "30"
+                                    },
+                                    "image": {
+                                        "description": "Upload an image file (e.g., JPG, PNG)",
+                                        "type": "string",
+                                        "format": "binary",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John"
+                                                },
+                                                "surname": {
+                                                    "type": "string",
+                                                    "example": "Michael"
+                                                },
+                                                "patronymic": {
+                                                    "type": "string",
+                                                    "example": "Doe"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "http://127.0.0.1:8000/image/image.png",
+                                                    "nullable": true
+                                                },
+                                                "age": {
+                                                    "type": "integer",
+                                                    "example": "30"
+                                                },
+                                                "user": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": "1"
+                                                        },
+                                                        "email": {
+                                                            "type": "string",
+                                                            "example": "test@gmail.com"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Delete a profile",
+                "operationId": "3bcde2a85b44d073d8d8d182ed489809",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Parameter user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "User id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "deleted": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Edit a profile",
+                "operationId": "de592868fd1a84e60d3adb236cf6240c",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "Parameter user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "User id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "Michael"
+                                    },
+                                    "patronymic": {
+                                        "type": "string",
+                                        "example": "Doe"
+                                    },
+                                    "age": {
+                                        "type": "integer",
+                                        "example": "30"
+                                    },
+                                    "image": {
+                                        "description": "Upload an image file (e.g., JPG, PNG)",
+                                        "type": "string",
+                                        "format": "binary",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "updated": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Server error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Profile",
+            "description": "Profile"
+        }
+    ]
+}
