@@ -33,7 +33,7 @@ use App\Http\Controllers\Controller;
  *                         type="string",
  *                         example="Cook dinner"
  *                     ),
- *  *                  @OA\Property(
+ *                     @OA\Property(
  *                         property="content",
  *                         type="string",
  *                         example="Buy 1 kilogram of chicken and grill it"
