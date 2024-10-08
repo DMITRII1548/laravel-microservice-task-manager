@@ -22,9 +22,12 @@ use App\Http\Controllers\Controller;
  *     ),
  *
  *     @OA\RequestBody(
+ *
  *         @OA\MediaType(
  *             mediaType="multipart/form-data",
+ *
  *             @OA\Schema(
+ *
  *                 @OA\Property(
  *                     property="name",
  *                     type="string",
@@ -61,10 +64,10 @@ use App\Http\Controllers\Controller;
  *         description="Created",
  *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(
  *                 property="data",
  *                 type="object",
- *
  *                 @OA\Property(
  *                     property="id",
  *                     type="integer",
@@ -99,7 +102,6 @@ use App\Http\Controllers\Controller;
  *                 @OA\Property(
  *                     property="user",
  *                     type="object",
- *
  *                     @OA\Property(
  *                         property="id",
  *                         type="integer",
@@ -119,7 +121,6 @@ use App\Http\Controllers\Controller;
  *         response="404",
  *         description="Not found"
  *     ),
- *
  *     @OA\Response(
  *         response="500",
  *         description="Server error"
@@ -143,9 +144,12 @@ use App\Http\Controllers\Controller;
  *     ),
  *
  *     @OA\RequestBody(
+ *
  *         @OA\MediaType(
  *             mediaType="multipart/form-data",
+ *
  *             @OA\Schema(
+ *
  *                 @OA\Property(
  *                     property="name",
  *                     type="string",
@@ -182,6 +186,7 @@ use App\Http\Controllers\Controller;
  *         description="Ok",
  *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(
  *                 property="updated",
  *                 type="bool",
@@ -194,12 +199,12 @@ use App\Http\Controllers\Controller;
  *         response="404",
  *         description="Not found"
  *     ),
- *
  *     @OA\Response(
  *         response="500",
  *         description="Server error",
  *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(
  *                 property="error",
  *                 type="string",
@@ -230,10 +235,10 @@ use App\Http\Controllers\Controller;
  *         description="Ok",
  *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(
  *                 property="data",
  *                 type="object",
- *
  *                 @OA\Property(
  *                     property="id",
  *                     type="integer",
@@ -268,7 +273,6 @@ use App\Http\Controllers\Controller;
  *                 @OA\Property(
  *                     property="user",
  *                     type="object",
- *
  *                     @OA\Property(
  *                         property="id",
  *                         type="integer",
@@ -310,8 +314,8 @@ use App\Http\Controllers\Controller;
  *         response="200",
  *         description="Ok",
  *
- *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(
  *                 type="bool",
  *                 property="deleted",

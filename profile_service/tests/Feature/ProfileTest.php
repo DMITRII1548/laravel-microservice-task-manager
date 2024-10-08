@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Profile;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -28,7 +27,7 @@ class ProfileTest extends TestCase
             ->assertJsonPath('surname', $profile->surname)
             ->assertJsonPath('patronymic', $profile->patronymic)
             ->assertJsonPath('age', $profile->age)
-            ->assertJsonPath('image', url('storage/' . $profile->image))
+            ->assertJsonPath('image', url('storage/'.$profile->image))
             ->assertJsonPath('user.id', $profile->user->id)
             ->assertJsonPath('user.email', $profile->user->email)
             ->assertJsonStructure([
@@ -39,7 +38,7 @@ class ProfileTest extends TestCase
                 'image',
                 'user' => [
                     'id',
-                    'email'
+                    'email',
                 ],
             ]);
     }
@@ -299,7 +298,7 @@ class ProfileTest extends TestCase
             ->assertJsonPath('data.surname', $profile->surname)
             ->assertJsonPath('data.patronymic', $profile->patronymic)
             ->assertJsonPath('data.age', $profile->age)
-            ->assertJsonPath('data.image', url('storage/' . $createdProfile->image))
+            ->assertJsonPath('data.image', url('storage/'.$createdProfile->image))
             ->assertJsonPath('data.user.id', $profile->user_id)
             ->assertJsonPath('data.user.email', $profile->user->email);
 

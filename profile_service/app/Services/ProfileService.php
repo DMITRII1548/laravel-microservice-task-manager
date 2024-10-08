@@ -29,7 +29,7 @@ class ProfileService
     public function update(Profile $profile, array $data): ?bool
     {
         try {
-            if (!$profile) {
+            if (! $profile) {
                 return response([], Response::HTTP_NOT_FOUND);
             }
 
@@ -65,6 +65,6 @@ class ProfileService
             Storage::delete($data['image']);
         }
 
-       return null;
+        return null;
     }
 }
