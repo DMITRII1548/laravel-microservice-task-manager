@@ -154,6 +154,315 @@
                 }
             }
         },
+        "/api/users/profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get a profile",
+                "operationId": "52f4a06330d171e786c554151c72c2c6",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John"
+                                                },
+                                                "surname": {
+                                                    "type": "string",
+                                                    "example": "Michael"
+                                                },
+                                                "patronymic": {
+                                                    "type": "string",
+                                                    "example": "Doe"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "http://127.0.0.1:8000/image/image.png",
+                                                    "nullable": true
+                                                },
+                                                "age": {
+                                                    "type": "integer",
+                                                    "example": "30"
+                                                },
+                                                "user": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": "1"
+                                                        },
+                                                        "email": {
+                                                            "type": "string",
+                                                            "example": "test@gmail.com"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "504": {
+                        "description": "Gateway Timeout"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Create a new profile",
+                "operationId": "031a90b149d1088d57b6be66427539da",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "Michael"
+                                    },
+                                    "patronymic": {
+                                        "type": "string",
+                                        "example": "Doe"
+                                    },
+                                    "age": {
+                                        "type": "integer",
+                                        "example": "30"
+                                    },
+                                    "image": {
+                                        "description": "Upload an image file (e.g., JPG, PNG)",
+                                        "type": "string",
+                                        "format": "binary",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John"
+                                                },
+                                                "surname": {
+                                                    "type": "string",
+                                                    "example": "Michael"
+                                                },
+                                                "patronymic": {
+                                                    "type": "string",
+                                                    "example": "Doe"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "http://127.0.0.1:8000/image/image.png",
+                                                    "nullable": true
+                                                },
+                                                "age": {
+                                                    "type": "integer",
+                                                    "example": "30"
+                                                },
+                                                "user": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": "1"
+                                                        },
+                                                        "email": {
+                                                            "type": "string",
+                                                            "example": "test@gmail.com"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "504": {
+                        "description": "Gateway Timeout"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Delete a profile",
+                "operationId": "46737c8ab4fa43f12f3c0a694a1d8d62",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "deleted": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "504": {
+                        "description": "Gateway Timeout"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Edit a profile",
+                "operationId": "c2ea142a2bbbb1bc6e0731da18be44c2",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "Michael"
+                                    },
+                                    "patronymic": {
+                                        "type": "string",
+                                        "example": "Doe"
+                                    },
+                                    "age": {
+                                        "type": "integer",
+                                        "example": "30"
+                                    },
+                                    "image": {
+                                        "description": "Upload an image file (e.g., JPG, PNG)",
+                                        "type": "string",
+                                        "format": "binary",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "updated": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "504": {
+                        "description": "Gateway Timeout"
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Server error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/users/tasks": {
             "get": {
                 "tags": [
@@ -827,6 +1136,10 @@
         {
             "name": "Auth",
             "description": "Auth"
+        },
+        {
+            "name": "Profile",
+            "description": "Profile"
         },
         {
             "name": "Task",
