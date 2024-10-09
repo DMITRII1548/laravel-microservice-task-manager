@@ -23,7 +23,7 @@ use App\Http\Controllers\Controller;
  *                      @OA\Property(
  *                          property="password",
  *                          type="password",
- *                          example="12345678"
+ *                          example="password"
  *                      )
  *                 )
  *             }
