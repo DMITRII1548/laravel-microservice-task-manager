@@ -153,12 +153,684 @@
                     }
                 }
             }
+        },
+        "/api/users/tasks": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get list of tasks",
+                "operationId": "561265a823830ac640449230b0d18ecf",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Parameter number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Number of page",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "504": {
+                        "description": "Gateway Timeout"
+                    },
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": "1"
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Cook dinner"
+                                            },
+                                            "content": {
+                                                "type": "string",
+                                                "example": "Buy 1 kilogram of chicken and grill it"
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "CREATED",
+                                                    "PROCESSING",
+                                                    "FINISHED",
+                                                    "CANCELED"
+                                                ],
+                                                "example": "CREATED"
+                                            },
+                                            "tags": {
+                                                "type": "array",
+                                                "items": {
+                                                    "description": "Tag name",
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "tag1",
+                                                    "tag2",
+                                                    "tag3"
+                                                ],
+                                                "nullable": true
+                                            },
+                                            "started_at": {
+                                                "type": "date-time",
+                                                "example": "2024-09-27 11:23:26",
+                                                "nullable": true
+                                            },
+                                            "finished_at": {
+                                                "type": "date-time",
+                                                "example": "2024-09-27 11:23:26",
+                                                "nullable": true
+                                            },
+                                            "created_at": {
+                                                "type": "date-time",
+                                                "example": "2024-09-27 11:23:26",
+                                                "nullable": true
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Create a new task",
+                "operationId": "8ea5a6a9d236d654cc58eda10d08d8ee",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Cook dinner"
+                                            },
+                                            "content": {
+                                                "type": "string",
+                                                "example": "Buy 1 kilogram of chicken and grill it"
+                                            },
+                                            "tags": {
+                                                "type": "array",
+                                                "items": {
+                                                    "description": "Tag name",
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "tag1",
+                                                    "tag2",
+                                                    "tag3"
+                                                ],
+                                                "nullable": true
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "504": {
+                        "description": "Gateway Timeout"
+                    },
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "Cook dinner"
+                                        },
+                                        "content": {
+                                            "type": "string",
+                                            "example": "Buy 1 kilogram of chicken and grill it"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "enum": [
+                                                "CREATED",
+                                                "PROCESSING",
+                                                "FINISHED",
+                                                "CANCELED"
+                                            ],
+                                            "example": "CREATED"
+                                        },
+                                        "tags": {
+                                            "type": "array",
+                                            "items": {
+                                                "description": "Tag name",
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "tag1",
+                                                "tag2",
+                                                "tag3"
+                                            ],
+                                            "nullable": true
+                                        },
+                                        "started_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        },
+                                        "finished_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        },
+                                        "created_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/tasks/{task}": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get a task",
+                "operationId": "cb0c62a409c0452b9ad713c6d443bca1",
+                "parameters": [
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Parameter task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Task id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "504": {
+                        "description": "Gateway Timeout"
+                    },
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "Cook dinner"
+                                        },
+                                        "content": {
+                                            "type": "string",
+                                            "example": "Buy 1 kilogram of chicken and grill it"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "enum": [
+                                                "CREATED",
+                                                "PROCESSING",
+                                                "FINISHED",
+                                                "CANCELED"
+                                            ],
+                                            "example": "CREATED"
+                                        },
+                                        "tags": {
+                                            "type": "array",
+                                            "items": {
+                                                "description": "Tag name",
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "tag1",
+                                                "tag2",
+                                                "tag3"
+                                            ],
+                                            "nullable": true
+                                        },
+                                        "started_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        },
+                                        "finished_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        },
+                                        "created_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Destroy a task",
+                "operationId": "40a3c458be7bfbdce2049cec7c94cc64",
+                "parameters": [
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Parameter task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Task id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "504": {
+                        "description": "Gateway Timeout"
+                    },
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "deleted": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Update a task",
+                "operationId": "b83c5df5cfb8433efaf1f372ef91923d",
+                "parameters": [
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Parameter task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Task id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Cook dinner"
+                                            },
+                                            "content": {
+                                                "type": "string",
+                                                "example": "Buy 1 kilogram of chicken and grill it"
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "CREATED",
+                                                    "PROCESSING",
+                                                    "FINISHED",
+                                                    "CANCELED"
+                                                ],
+                                                "example": "CREATED"
+                                            },
+                                            "tags": {
+                                                "type": "array",
+                                                "items": {
+                                                    "description": "Tag name",
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "tag1",
+                                                    "tag2",
+                                                    "tag3"
+                                                ],
+                                                "nullable": true
+                                            },
+                                            "started_at": {
+                                                "type": "date-time",
+                                                "example": "2024-09-27 11:23:26",
+                                                "nullable": true
+                                            },
+                                            "finished_at": {
+                                                "type": "date-time",
+                                                "example": "2024-09-27 11:23:26",
+                                                "nullable": true
+                                            },
+                                            "created_at": {
+                                                "type": "date-time",
+                                                "example": "2024-09-27 11:23:26",
+                                                "nullable": true
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "504": {
+                        "description": "Gateway Timeout"
+                    },
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "Cook dinner"
+                                        },
+                                        "content": {
+                                            "type": "string",
+                                            "example": "Buy 1 kilogram of chicken and grill it"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "enum": [
+                                                "CREATED",
+                                                "PROCESSING",
+                                                "FINISHED",
+                                                "CANCELED"
+                                            ],
+                                            "example": "CREATED"
+                                        },
+                                        "tags": {
+                                            "type": "array",
+                                            "items": {
+                                                "description": "Tag name",
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "tag1",
+                                                "tag2",
+                                                "tag3"
+                                            ],
+                                            "nullable": true
+                                        },
+                                        "started_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        },
+                                        "finished_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        },
+                                        "created_at": {
+                                            "type": "date-time",
+                                            "example": "2024-09-27 11:23:26",
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/tasks/{task}/status/next": {
+            "patch": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Update status of task to next. ",
+                "operationId": "5d915d19251f596da934a748a363770f",
+                "parameters": [
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Parameter task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Task id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "504": {
+                        "description": "Gateway Timeout"
+                    },
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "updated": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "enum": [
+                                                "CREATED",
+                                                "PROCESSING",
+                                                "FINISHED",
+                                                "CANCELED"
+                                            ],
+                                            "example": "PROCESSING"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/tasks/{task}/status/back": {
+            "patch": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Update status of task to back. ",
+                "operationId": "6a96f03d88f1b69a123d017b17a21e6c",
+                "parameters": [
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Parameter task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Task id",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "504": {
+                        "description": "Gateway Timeout"
+                    },
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "updated": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "enum": [
+                                                "CREATED",
+                                                "PROCESSING",
+                                                "FINISHED",
+                                                "CANCELED"
+                                            ],
+                                            "example": "PROCESSING"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
         }
     },
     "tags": [
         {
             "name": "Auth",
             "description": "Auth"
+        },
+        {
+            "name": "Task",
+            "description": "Task"
         }
     ]
 }
