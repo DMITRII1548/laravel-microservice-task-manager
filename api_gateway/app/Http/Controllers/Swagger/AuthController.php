@@ -80,7 +80,61 @@ use App\Http\Controllers\Controller;
  *             ),
  *         )
  *     ),
- * )
+ * ),
+ *
+  * @OA\Post(
+ *     path="/api/register",
+ *     summary="Registration",
+ *     tags={"Auth"},
+ *
+ *     @OA\RequestBody(
+ *         @OA\JsonContent(
+ *             allOf={
+ *                 @OA\Schema(
+ *                      @OA\Property(
+ *                          property="name",
+ *                          type="test",
+ *                          example="John"
+ *                      ),
+ *                     @OA\Property(
+ *                          property="email",
+ *                          type="email",
+ *                          example="user@gmail.com"
+ *                      ),
+ *
+ *                      @OA\Property(
+ *                          property="password",
+ *                          type="password",
+ *                          example="12345678"
+ *                      )
+ *                 )
+ *             }
+ *         )
+ *     ),
+ *
+ *     @OA\Response(
+ *         response="200",
+ *         description="Ok",
+ *
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="response_code",
+ *                 type="string",
+ *                 example="200"
+ *             ),
+ *             @OA\Property(
+ *                 property="status",
+ *                 type="string",
+ *                 example="success"
+ *             ),
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="success Register"
+ *             ),
+ *         )
+ *     ),
+ * ),
  */
 class AuthController extends Controller
 {
