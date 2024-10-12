@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  api_gateway_nginx:
+    image: nginx:latest
+    volumes:
+      - ./:/var/www/
+      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - 8000:8000
+    depends_on:
+      - api_gateway
+    restart: always
+    container_name: api_gateway_nginx
+
+  api_gateway:
+    build:
+      context: .
+      dockerfile: _docker/app/Dockerfile
+    volumes:
+      - ./:/var/www/
+    depends_on:
+      - api_gateway_db
+    container_name: api_gateway
+
+  api_gateway_db:
+    image: postgres:17.0
+    restart: always
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: api_gateway
+      POSTGRES_USER: root 
+      POSTGRES_PASSWORD: password 
+    ports:
+      - 5432:5432
+    container_name: api_gateway_db
+
+  api_gateway_adminer:
+    image: dpage/pgadmin4
+    container_name: pgAdmin
+    ports:
+      - "5050:80"
+    depends_on:
+      - api_gateway_db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@example.com
+      PGADMIN_DEFAULT_PASSWORD: password 
