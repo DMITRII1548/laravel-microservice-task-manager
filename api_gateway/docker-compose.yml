@@ -12,6 +12,8 @@ services:
       - api_gateway
     restart: always
     container_name: api_gateway_nginx
+    networks:
+      - api_gateway_network
 
   api_gateway:
     build:
@@ -22,6 +24,9 @@ services:
     depends_on:
       - api_gateway_db
     container_name: api_gateway
+    networks:
+      - api_gateway_network
+      - rabbitmq_network
 
   api_gateway_db:
     image: postgres:17.0
@@ -32,13 +37,13 @@ services:
       POSTGRES_DB: api_gateway
       POSTGRES_USER: root 
       POSTGRES_PASSWORD: password 
-    ports:
-      - 5432:5432
     container_name: api_gateway_db
+    networks:
+      - api_gateway_network
 
   api_gateway_adminer:
     image: dpage/pgadmin4
-    container_name: pgAdmin
+    container_name: api_gateway_adminer
     ports:
       - "5050:80"
     depends_on:
@@ -46,3 +51,11 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: user@example.com
       PGADMIN_DEFAULT_PASSWORD: password 
+    networks:
+      - api_gateway_network
+      
+networks:
+  api_gateway_network:
+    driver: bridge
+  rabbitmq_network:
+    external: true

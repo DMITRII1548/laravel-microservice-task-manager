@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  profile_service_nginx:
+    image: nginx:latest
+    volumes:
+      - ./:/var/www/
+      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - 8002:8000
+    depends_on:
+      - profile_service
+    restart: always
+    container_name: profile_service_nginx
+    networks:
+      - profile_service_network
+
+  profile_service:
+    build:
+      context: .
+      dockerfile: _docker/app/Dockerfile
+    volumes:
+      - ./:/var/www/
+    depends_on:
+      - profile_service_db
+    container_name: profile_service
+    networks:
+      - profile_service_network
+      - rabbitmq_network
+
+  profile_service_db:
+    image: postgres:17.0
+    restart: always
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: profile_service
+      POSTGRES_USER: root 
+      POSTGRES_PASSWORD: password 
+    container_name: profile_service_db
+    networks:
+      - profile_service_network
+
+  profile_service_adminer:
+    image: dpage/pgadmin4
+    container_name: profile_service_adminer
+    ports:
+      - "5052:80"
+    depends_on:
+      - profile_service_db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@example.com
+      PGADMIN_DEFAULT_PASSWORD: password 
+    networks:
+      - profile_service_network
+
+networks:
+  profile_service_network:
+    driver: bridge
+  rabbitmq_network:
+    external: true

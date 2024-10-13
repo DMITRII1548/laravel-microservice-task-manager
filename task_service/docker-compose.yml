@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  task_service_nginx:
+    image: nginx:latest
+    volumes:
+      - ./:/var/www/
+      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - 8001:8000
+    depends_on:
+      - task_service
+    restart: always
+    container_name: task_service_nginx
+    networks:
+      - task_service_network
+
+  task_service:
+    build:
+      context: .
+      dockerfile: _docker/app/Dockerfile
+    volumes:
+      - ./:/var/www/
+    depends_on:
+      - task_service_db
+    container_name: task_service
+    networks:
+      - task_service_network
+      - rabbitmq_network
+
+  task_service_db:
+    image: postgres:17.0
+    restart: always
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: task_service
+      POSTGRES_USER: root 
+      POSTGRES_PASSWORD: password 
+    container_name: task_service_db
+    networks:
+      - task_service_network
+
+
+  task_service_adminer:
+    image: dpage/pgadmin4
+    container_name: task_service_adminer
+    ports:
+      - "5051:80"
+    depends_on:
+      - task_service_db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@example.com
+      PGADMIN_DEFAULT_PASSWORD: password 
+    networks:
+      - task_service_network
+
+networks:
+  task_service_network:
+    driver: bridge
+  rabbitmq_network:
+    external: true
